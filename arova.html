@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arova Coffee | Great Coffee. Better Moments.</title>
+<meta name="description" content="Arova Coffee is a premium small-batch coffee brand. Thoughtfully selected beans, expertly roasted, made for better moments.">
+<meta name="theme-color" content="#150D07">
+<link rel="icon" type="image/png" href="Brand%20Assets/web/icon-dark.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          deep: '#150D07',        // darkest panel, derived from Espresso
+          espresso: '#2E1B10',    // brand primary
+          roast: '#5A3A22',       // brand secondary
+          gold: '#D4A95B',        // brand accent
+          softgold: '#E6CFA0',    // rules/lines on dark
+          goldink: '#85612A',     // gold text on cream (4.9:1, AA)
+          cream: '#F7EFE1',       // brand background
+          charcoal: '#1A1A1A'
+        },
+        fontFamily: {
+          display: ['"Playfair Display"', 'Georgia', 'serif'],
+          sans: ['Montserrat', 'Arial', 'sans-serif']
+        }
+      }
+    }
+  };
+</script>
+<style>
+  :root { --spring: cubic-bezier(.34, 1.4, .5, 1); }
+  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+  body { font-family: Montserrat, Arial, sans-serif; line-height: 1.7; background: #F7EFE1; color: #2E1B10; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: "Playfair Display", Georgia, serif; font-weight: 500; letter-spacing: -0.03em; line-height: 1.08; }
+
+  /* Visible keyboard focus on every interactive element */
+  :focus-visible { outline: 2px solid #D4A95B; outline-offset: 3px; border-radius: 4px; }
+  /* Gold ring is only 1.9:1 on cream, so light sections use espresso (14:1) */
+  .focus-light :focus-visible { outline-color: #2E1B10; }
+
+  /* Interaction transitions: transform/opacity plus colour only, never "all" */
+  .t-pop { transition: transform .35s var(--spring), background-color .2s ease, color .2s ease, opacity .2s ease; }
+  .t-pop:hover { transform: translateY(-2px); }
+  .t-pop:active { transform: scale(.97); }
+
+  /* Layered, brown-tinted shadows (base -> elevated -> floating) */
+  .shadow-elevated { box-shadow: 0 1px 2px rgba(46,27,16,.08), 0 8px 20px -6px rgba(46,27,16,.18), 0 24px 48px -16px rgba(46,27,16,.20); }
+  .shadow-floating { box-shadow: 0 2px 4px rgba(21,13,7,.10), 0 16px 32px -8px rgba(21,13,7,.28), 0 40px 80px -24px rgba(21,13,7,.35); }
+
+  /* Keep stacked photos a sensible size below the desktop breakpoint */
+  @media (max-width: 1023px) { .media-frame { max-width: 34rem; margin-inline: auto; } }
+
+  /* Film grain on dark panels */
+  .grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+
+  /* Signature detail: short gold rule beneath headlines */
+  .gold-rule { display: block; width: 56px; height: 2px; background: #D4A95B; }
+
+  /* Buttons */
+  .btn-gold { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 52px; padding: 0 1.75rem; background: #D4A95B; color: #150D07;
+    font-size: .8125rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; border: 0; }
+  .btn-gold:hover { background: #E2BB75; }
+  .btn-line { display: inline-flex; align-items: center; gap: .6rem; min-height: 52px; padding: 0 .25rem; font-size: .8125rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; border-bottom: 1px solid currentColor; }
+
+  /* One orchestrated entrance: hero only */
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes settle { from { opacity: 0; transform: scale(1.04); } to { opacity: 1; transform: scale(1); } }
+  .rise { opacity: 0; animation: rise .9s var(--spring) forwards; animation-delay: var(--d, 0s); }
+  .settle { opacity: 0; animation: settle 1.3s cubic-bezier(.2,.7,.2,1) .15s forwards; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rise, .settle { animation: none; opacity: 1; }
+    .t-pop, .t-pop:hover, .t-pop:active { transition: none; transform: none; }
+  }
+
+  /* Sticky nav gets a hairline once the page scrolls */
+  .nav-scrolled { box-shadow: 0 1px 0 rgba(212,169,91,.25), 0 12px 32px -16px rgba(0,0,0,.6); }
+</style>
+</head>
+<body class="antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-gold focus:text-deep focus:px-4 focus:py-2">Skip to content</a>
+
+<!-- NAV -->
+<header id="siteNav" class="sticky top-0 z-50 bg-deep/[.97] backdrop-blur-md text-cream">
+  <div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8">
+    <a href="#top" aria-label="Arova Coffee, home" class="t-pop shrink-0">
+      <img src="Brand%20Assets/web/logo-horizontal-dark.png" alt="Arova Coffee" width="528" height="167" class="h-11 w-auto">
+    </a>
+    <nav aria-label="Primary" class="hidden items-center gap-9 text-[.8125rem] font-medium tracking-[.08em] md:flex">
+      <a href="#collection" class="text-cream/80 transition-colors hover:text-gold">Collection</a>
+      <a href="#ritual" class="text-cream/80 transition-colors hover:text-gold">Ritual</a>
+      <a href="#craft" class="text-cream/80 transition-colors hover:text-gold">Craft</a>
+      <a href="#join" class="btn-gold t-pop !min-h-[44px]">Brew your moment <span aria-hidden="true">&rarr;</span></a>
+    </nav>
+    <button id="menuBtn" type="button" class="t-pop grid h-11 w-11 place-items-center rounded md:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path id="menuIcon" d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+  <nav id="mobileMenu" aria-label="Mobile" class="hidden border-t border-gold/20 bg-deep px-5 pb-6 pt-2 md:hidden">
+    <ul class="flex flex-col text-[.9375rem]">
+      <li><a href="#collection" class="block py-3 text-cream/90 hover:text-gold">Collection</a></li>
+      <li><a href="#ritual" class="block py-3 text-cream/90 hover:text-gold">Ritual</a></li>
+      <li><a href="#craft" class="block py-3 text-cream/90 hover:text-gold">Craft</a></li>
+      <li class="pt-3"><a href="#join" class="btn-gold t-pop w-full">Brew your moment <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section id="top" class="focus-light relative overflow-hidden"
+  style="background:
+    radial-gradient(60% 70% at 85% 15%, rgba(212,169,91,.28), transparent 70%),
+    radial-gradient(50% 60% at 5% 100%, rgba(90,58,34,.14), transparent 70%),
+    radial-gradient(40% 40% at 50% 0%, rgba(255,255,255,.55), transparent 70%),
+    #F7EFE1;">
+  <!-- Animated photo tunnel (bg-gallery.js); veil keeps the headline legible -->
+  <div id="heroGallery" class="absolute inset-0 z-0" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-cream/90 via-cream/55 to-cream/20" aria-hidden="true"></div>
+  <div class="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-14 sm:px-8 lg:grid-cols-12 lg:gap-8 lg:pb-28 lg:pt-20">
+    <div class="lg:col-span-7">
+      <h1 class="rise text-[clamp(2.25rem,5.2vw,4.5rem)] font-normal tracking-[-0.02em] text-espresso" style="--d:.05s">
+        Coffee worth<br>savoring.
+      </h1>
+      <span class="gold-rule rise mt-8" style="--d:.2s"></span>
+      <p class="rise mt-8 max-w-md text-lg leading-[1.8] text-roast" style="--d:.3s">
+        Thoughtfully selected. Expertly roasted.<br>Made for better moments.
+      </p>
+      <div class="rise mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" style="--d:.42s">
+        <a href="#join" class="btn-gold t-pop shadow-elevated">Brew your moment <span aria-hidden="true">&rarr;</span></a>
+        <a href="#collection" class="btn-line text-espresso transition-colors hover:text-goldink">Meet the blends</a>
+      </div>
+    </div>
+
+    <div class="relative lg:col-span-5">
+      <div class="settle shadow-floating relative mx-auto aspect-[4/5] w-full max-w-md overflow-hidden rounded-sm lg:aspect-[3/4] lg:max-w-none">
+        <img src="Brand%20Assets/web/hero-bag.jpg" alt="Arova Signature Blend coffee bag beside a steaming speckled mug" width="664" height="1135" class="h-full w-full object-cover object-[50%_62%]" fetchpriority="high">
+        <div class="absolute inset-0 bg-gradient-to-t from-deep/50 via-transparent to-transparent" aria-hidden="true"></div>
+      </div>
+      <div class="rise shadow-elevated absolute -bottom-6 left-4 right-4 mx-auto max-w-xs rounded-sm bg-cream px-5 py-4 sm:left-auto sm:right-[-12px] sm:mx-0 lg:-left-10 lg:right-auto" style="--d:.8s">
+        <p class="font-display text-xl text-espresso">Signature Blend</p>
+        <p class="text-sm text-roast">Rich &middot; Smooth &middot; Balanced</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAND PROMISE -->
+<section id="promise" class="grain relative overflow-hidden bg-deep text-cream"
+  style="background-image: radial-gradient(55% 80% at 100% 0%, rgba(212,169,91,.16), transparent 70%), radial-gradient(50% 70% at 0% 100%, rgba(90,58,34,.35), transparent 70%);">
+  <div class="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:py-28">
+    <div class="max-w-2xl">
+      <h2 class="text-[clamp(2.25rem,5vw,4rem)] text-cream">Great coffee.<br>Better moments.</h2>
+      <span class="gold-rule mt-7"></span>
+      <p class="mt-7 max-w-lg text-lg leading-[1.8] text-cream/80">
+        We source exceptional beans, roast them in small batches, and deliver a rich, smooth and balanced cup for the conversations and quiet minutes that matter.
+      </p>
+    </div>
+
+    <ul class="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-gold/25 pt-12 sm:grid-cols-3 lg:grid-cols-5">
+      <li class="flex flex-col gap-4">
+        <svg class="h-11 w-11 text-gold" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="21"/><ellipse cx="24" cy="24" rx="7" ry="10.5" transform="rotate(25 24 24)"/><path d="M20 14c4 3 4 7 0 10s-3 7 1 10" transform="rotate(25 24 24)"/></svg>
+        <span class="text-sm font-medium tracking-wide">Premium quality</span>
+      </li>
+      <li class="flex flex-col gap-4">
+        <svg class="h-11 w-11 text-gold" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M24 10c1 5 7 8 7 15a7 7 0 0 1-14 0c0-3 1.5-5 3-6.500.5 2 1.500 3 3 3.500C22 18 22 14 24 10z"/></svg>
+        <span class="text-sm font-medium tracking-wide">Expertly roasted</span>
+      </li>
+      <li class="flex flex-col gap-4">
+        <svg class="h-11 w-11 text-gold" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M15 31c0-9 6-14 18-14 0 10-5 16-14 16"/><path d="M15 33c4-5 8-8 13-10"/></svg>
+        <span class="text-sm font-medium tracking-wide">Ethically sourced</span>
+      </li>
+      <li class="flex flex-col gap-4">
+        <svg class="h-11 w-11 text-gold" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M24 34V22"/><path d="M24 24c-6 0-9-3-9-8 6 0 9 3 9 8zM24 27c5 0 8-3 8-7-5 0-8 3-8 7z"/></svg>
+        <span class="text-sm font-medium tracking-wide">Sustainably sourced</span>
+      </li>
+      <li class="flex flex-col gap-4">
+        <svg class="h-11 w-11 text-gold" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="24" cy="24" r="21"/><path d="M14 20h17v6a7 7 0 0 1-7 7h-3a7 7 0 0 1-7-7v-6z"/><path d="M31 22h2a3 3 0 0 1 0 6h-2.500"/><path d="M19 13c-1 1.500 1 2.500 0 4M24 13c-1 1.500 1 2.500 0 4"/></svg>
+        <span class="text-sm font-medium tracking-wide">Better moments</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- COLLECTION -->
+<section id="collection" class="focus-light bg-cream">
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:py-28">
+    <div class="lg:col-span-6">
+      <div class="shadow-elevated media-frame overflow-hidden rounded-sm">
+        <img src="Brand%20Assets/web/collection.jpg" alt="Three Arova coffee bags: Signature Blend, Dark Roast and Espresso Blend, with a brass scoop of beans" width="947" height="1122" loading="lazy" class="aspect-[5/4] w-full object-cover object-[50%_60%]">
+      </div>
+    </div>
+    <div class="lg:col-span-6">
+      <h2 class="text-[clamp(2.25rem,4.6vw,3.75rem)] text-espresso">The collection</h2>
+      <span class="gold-rule mt-7"></span>
+      <p class="mt-7 max-w-lg text-lg leading-[1.8] text-roast">Three whole bean blends. Each is 100% Arabica, handcrafted in small batches and packed in 12 oz (340 g) bags.</p>
+
+      <ul class="mt-10 divide-y divide-roast/15 border-y border-roast/15">
+        <li class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 class="text-2xl text-espresso">Signature Blend</h3>
+            <p class="text-sm text-roast">Rich &middot; Smooth &middot; Balanced</p>
+          </div>
+          <a href="#join" class="btn-line t-pop self-start text-goldink hover:text-espresso sm:self-auto" aria-label="Get notified about Signature Blend">Get notified <span aria-hidden="true">&rarr;</span></a>
+        </li>
+        <li class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 class="text-2xl text-espresso">Espresso Blend</h3>
+            <p class="text-sm text-roast">Bold &middot; Rich &middot; Creamy</p>
+          </div>
+          <a href="#join" class="btn-line t-pop self-start text-goldink hover:text-espresso sm:self-auto" aria-label="Get notified about Espresso Blend">Get notified <span aria-hidden="true">&rarr;</span></a>
+        </li>
+        <li class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h3 class="text-2xl text-espresso">Dark Roast</h3>
+            <p class="text-sm text-roast">Bold &middot; Intense &middot; Full-bodied</p>
+          </div>
+          <a href="#join" class="btn-line t-pop self-start text-goldink hover:text-espresso sm:self-auto" aria-label="Get notified about Dark Roast">Get notified <span aria-hidden="true">&rarr;</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EVERYDAY RITUAL -->
+<section id="ritual" class="grain relative overflow-hidden bg-deep text-cream"
+  style="background-image: radial-gradient(60% 70% at 0% 50%, rgba(212,169,91,.14), transparent 70%);">
+  <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:py-28">
+    <div class="order-2 lg:order-1 lg:col-span-6">
+      <h2 class="text-[clamp(2.5rem,5.4vw,4.5rem)] uppercase text-cream">Make every<br>morning matter.</h2>
+      <span class="gold-rule mt-8"></span>
+      <p class="mt-8 max-w-md text-lg leading-[1.8] text-cream/80">Exceptional beans. Thoughtfully roasted. Made for your everyday ritual: the window light, the steam, the first quiet sip.</p>
+      <a href="#join" class="btn-gold t-pop mt-10">Discover Arova <span aria-hidden="true">&rarr;</span></a>
+    </div>
+    <div class="order-1 lg:order-2 lg:col-span-6">
+      <div class="shadow-floating media-frame overflow-hidden rounded-sm">
+        <img src="Brand%20Assets/web/ritual.jpg" alt="Arova bag and a steaming mug on a wooden board in warm window light" width="902" height="1122" loading="lazy" class="aspect-[4/5] w-full object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRAFT & SOURCING -->
+<section id="craft" class="focus-light bg-cream">
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:py-28">
+    <div class="lg:col-span-6">
+      <h2 class="text-[clamp(2.25rem,4.6vw,3.75rem)] uppercase text-espresso">Crafted for<br>the perfect cup.</h2>
+      <span class="gold-rule mt-7"></span>
+      <p class="mt-7 max-w-lg text-lg leading-[1.8] text-roast">Small-batch coffee takes patience at every step. Here is how a bean becomes an Arova cup.</p>
+
+      <ol class="mt-10 space-y-8">
+        <li class="flex gap-5">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold font-display text-lg text-deep" aria-hidden="true">1</span>
+          <div><h3 class="text-xl text-espresso">Carefully selected</h3><p class="text-roast">Ripe cherries are picked by hand, then sorted for depth and character.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold font-display text-lg text-deep" aria-hidden="true">2</span>
+          <div><h3 class="text-xl text-espresso">Expertly roasted</h3><p class="text-roast">Roasted in small batches to bring out a rich, smooth and balanced flavour.</p></div>
+        </li>
+        <li class="flex gap-5">
+          <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold font-display text-lg text-deep" aria-hidden="true">3</span>
+          <div><h3 class="text-xl text-espresso">Made for your moment</h3><p class="text-roast">Packed whole bean, ready for whichever way you like to brew.</p></div>
+        </li>
+      </ol>
+    </div>
+    <div class="lg:col-span-6">
+      <div class="shadow-elevated media-frame overflow-hidden rounded-sm">
+        <img src="Brand%20Assets/web/craft.jpg" alt="Arova Signature Blend bag on burlap surrounded by roasted beans" width="752" height="1122" loading="lazy" class="aspect-[4/5] w-full object-cover object-[50%_55%]">
+      </div>
+    </div>
+  </div>
+
+  <!-- Sourcing band -->
+  <div class="relative isolate overflow-hidden bg-deep text-cream">
+    <img src="Brand%20Assets/web/harvest.jpg" alt="Farmers hand-picking ripe red coffee cherries at sunrise on a misty hillside" width="1672" height="941" loading="lazy" class="absolute inset-0 -z-20 h-full w-full object-cover">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-deep/90 via-deep/60 to-deep/10" aria-hidden="true"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-t from-deep/70 to-transparent" aria-hidden="true"></div>
+    <div class="mx-auto max-w-7xl px-5 py-24 sm:px-8 lg:py-36">
+      <h2 class="max-w-xl text-[clamp(2rem,4.4vw,3.5rem)] text-cream">Ethically sourced, picked at the right moment.</h2>
+      <span class="gold-rule mt-7"></span>
+      <p class="mt-7 max-w-md text-lg leading-[1.8] text-cream/85">Great coffee starts on the hillside. We choose beans for how they taste and how they are grown.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING / NEWSLETTER -->
+<section id="join" class="grain relative overflow-hidden bg-deep text-cream"
+  style="background-image: radial-gradient(50% 70% at 100% 100%, rgba(212,169,91,.18), transparent 70%);">
+  <div class="relative mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-12 lg:gap-16 lg:py-28">
+    <div class="lg:col-span-6">
+      <h2 class="text-[clamp(2.5rem,5.4vw,4.5rem)] uppercase text-cream">Great coffee.<br>Better moments.</h2>
+      <span class="gold-rule mt-8"></span>
+      <p class="mt-8 max-w-md text-lg leading-[1.8] text-cream/80">Slow down. Sip deeply. Make the moment yours. Join the list to hear first when new blends arrive.</p>
+
+      <form id="joinForm" class="mt-10 max-w-lg" novalidate>
+        <label for="email" class="mb-2 block text-sm font-medium tracking-wide text-softgold">Email address</label>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="emailMsg"
+            class="min-h-[52px] w-full flex-1 rounded-sm border border-softgold/40 bg-cream/5 px-4 text-cream placeholder:text-cream/60 focus:border-gold">
+          <button type="submit" class="btn-gold t-pop">Join the list <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <p id="emailMsg" role="status" aria-live="polite" class="mt-3 min-h-[1.5rem] text-sm"></p>
+      </form>
+    </div>
+    <div class="lg:col-span-6">
+      <div class="shadow-floating media-frame overflow-hidden rounded-sm">
+        <img src="Brand%20Assets/web/closing.jpg" alt="Steaming mug and Arova Signature Blend bag with a brass scoop of beans" width="812" height="1122" loading="lazy" class="aspect-[4/5] w-full object-cover object-[50%_45%]">
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-deep text-cream">
+  <div class="mx-auto max-w-7xl border-t border-gold/25 px-5 py-14 sm:px-8">
+    <div class="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
+      <div>
+        <img src="Brand%20Assets/web/logo-horizontal-dark.png" alt="Arova Coffee" width="528" height="167" loading="lazy" class="h-14 w-auto">
+        <p class="mt-4 max-w-xs text-sm text-cream/70">Great Coffee. Better Moments.</p>
+      </div>
+      <nav aria-label="Footer" class="flex flex-wrap gap-x-10 gap-y-3 text-sm">
+        <a href="#collection" class="text-cream/80 transition-colors hover:text-gold">Collection</a>
+        <a href="#ritual" class="text-cream/80 transition-colors hover:text-gold">Ritual</a>
+        <a href="#craft" class="text-cream/80 transition-colors hover:text-gold">Craft</a>
+        <a href="#join" class="text-cream/80 transition-colors hover:text-gold">Join the list</a>
+      </nav>
+    </div>
+    <p class="mt-12 text-xs text-cream/60">&copy; <span id="year">2026</span> Arova Coffee. All rights reserved.</p>
+  </div>
+</footer>
+
+<script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+  import { mountGallery } from './bg-gallery.js';
+
+  // Decorative only: if WebGL or an image fails, the hero keeps its static cream background.
+  mountGallery(document.getElementById('heroGallery'), {
+    images: [
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2009_28_23%20PM.jpg',
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2009_40_05%20PM.jpg',
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2009_46_42%20PM.jpg',
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2009_54_27%20PM.jpg',
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2010_00_50%20PM.jpg',
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2010_07_08%20PM.jpg',
+      'Brand%20Assets/ChatGPT%20Image%20Aug%2017%2C%202026%2C%2010_13_00%20PM.jpg'
+    ],
+    visibleCount: 12
+  }).catch(function (error) {
+    document.getElementById('heroGallery').dataset.error = error.message;
+  });
+</script>
+<script>
+  (function () {
+    'use strict';
+
+    var nav = document.getElementById('siteNav');
+    var menuBtn = document.getElementById('menuBtn');
+    var menu = document.getElementById('mobileMenu');
+    var menuIcon = document.getElementById('menuIcon');
+    var form = document.getElementById('joinForm');
+    var emailInput = document.getElementById('email');
+    var emailMsg = document.getElementById('emailMsg');
+    var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+    /**
+     * Opens or closes the mobile menu and keeps aria state and icon in sync.
+     * @param {boolean} open - Whether the menu should be open.
+     */
+    function setMenu(open) {
+      menu.classList.toggle('hidden', !open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      menuIcon.setAttribute('d', open ? 'M6 6l12 12M18 6L6 18' : 'M4 8h16M4 16h16');
+    }
+
+    /** Adds a hairline under the nav once the page has scrolled. */
+    function onScroll() {
+      nav.classList.toggle('nav-scrolled', window.scrollY > 8);
+    }
+
+    /**
+     * Shows a message under the email field in the matching colour.
+     * @param {string} text - Message to display.
+     * @param {boolean} isError - True for an error state, false for success.
+     */
+    function showMessage(text, isError) {
+      emailMsg.textContent = text;
+      emailMsg.className = 'mt-3 min-h-[1.5rem] text-sm ' + (isError ? 'text-[#F2B8A0]' : 'text-softgold');
+      emailInput.setAttribute('aria-invalid', String(isError));
+    }
+
+    menuBtn.addEventListener('click', function () {
+      setMenu(menuBtn.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.addEventListener('click', function (event) {
+      if (event.target.closest('a')) { setMenu(false); }
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') { setMenu(false); }
+    });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // No backend is connected yet: this validates the address and confirms on screen only.
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var value = emailInput.value.trim();
+      if (!value) {
+        showMessage('Enter your email address to join the list.', true);
+        emailInput.focus();
+        return;
+      }
+      if (!EMAIL_PATTERN.test(value)) {
+        showMessage('That email address looks incomplete. Check it and try again.', true);
+        emailInput.focus();
+        return;
+      }
+      showMessage('Thank you. You are on the list.', false);
+      form.reset();
+    });
+
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+  })();
+</script>
+</body>
+</html>
