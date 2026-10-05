@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Generated screenshots from design review
+temporary screenshots/
+
+# OS / editor files
+Thumbs.db
+.DS_Store
