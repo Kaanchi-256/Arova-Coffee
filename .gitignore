@@ -7,3 +7,7 @@ temporary screenshots/
 # OS / editor files
 Thumbs.db
 .DS_Store
+
+# Secrets / generated output
+.env
+output/

@@ -1,0 +1,27 @@
+1. Step 1: Get the Claude.md file from "https://www.skool.com/ai-automation-society/classroom/076a1c6e?md=5086a446f2bc47ccbc29988bad7cb5e4"
+
+2. Get Skills from Anthropic Skills library. For that run the below commands in VS code --> Claude terminal
+
+/plugin marketplace add anthropics/claude-code
+/plugin install frontend-design@claude-code
+
+3. Create a Brand Assets folder --> Keep all the images and logos of your Brand for which website needs to be built
+
+4. Give a simple prompt 
+Prompt: build me a modern and professional landing page for my coffee brand "Arova Coffee"
+
+attach Logo and Brand guidelines.
+
+5. To copy the website design Open the webpage 
+
+1. --> F12 Key --> window will open --> Console -> Shift + control + p --> search screen shot --> Capture full screen shot
+
+2. --> Elements--> Styles --> copy all the code
+
+6. Paste the Code in the claude Terminal
+
+Prompt: I want you to spin up a new webize for us, so you can get rid of the old one and you can put this one on the local host. I want you to basically just clone this website. I will give you the screenshot of the website as well as the style code.
+
+7. Remove the temporary screen shots
+
+Prompt: The most recent landing page looks very good, What I want you to do now is work in our brand assets, so our brand guidelines and our "Arova Logo" and this Brand webpage "Arova Coffee". Just work in those changes to that website clone that you just built. 
